@@ -5,4 +5,4 @@ Solution to JdeRobot's python challenge for Brownian Motion
 
 Video of the working code available here:
 
-- [Link](https://youtu.be/Qjzq3D5GsNY)
+- [Link](https://youtu.be/VAYZrto2NwM)
