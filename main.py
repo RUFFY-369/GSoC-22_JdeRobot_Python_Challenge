@@ -5,64 +5,61 @@ import numpy as np
 import pygame
 from particle_collection import ParticleCollection
 
-pygame.init()
 
-################################################################################
+class BrownianMotion():
+    def __init__(self) -> None:
+        pygame.init()
 
-
-# Defining game window
-WIDTH = 600
-HEIGHT = 600
-WINDOW = pygame.display.set_mode((WIDTH, HEIGHT)) 
-pygame.display.set_caption("Brownian Motion (GSoC'22 JdeRobot Python Challenge)")  # window name
-
-
-# Simulation constants
-MAX_PARTICLES = 2 # Number of particles -1
-FPS = 75
+        # Defining game window
+        self.WIDTH = 600
+        self.HEIGHT = 600
+        self.WINDOW = pygame.display.set_mode((self.WIDTH, self.HEIGHT)) 
+        pygame.display.set_caption("Brownian Motion (GSoC'22 JdeRobot Python Challenge)")  # window name
 
 
-def draw_window(manager: ParticleCollection) -> None:
-    # filling background as white
-    WINDOW.fill((255, 255, 255))
+        # Simulation constants
+        self.MAX_PARTICLES = 2 # Number of particles -1
+        self.FPS = 75
 
-    # creating particle arena
-    pygame.draw.rect(WINDOW,
-                    (0, 0, 0),
-                    (75, 75, 450, 450),
-                     2)
+    def draw_window(self,manager: ParticleCollection) -> None:
+        # filling background as white
+        self.WINDOW.fill((255, 255, 255))
 
- 
-    # updating particle velocities and positions
-    manager.update_particles()
+        # creating particle arena
+        pygame.draw.rect(self.WINDOW,
+                        (0, 0, 0),
+                        (75, 75, 450, 450),
+                        2)
 
-    # updating positions and colors of particle
-    new_particle_info = manager.get_updated_particle_info()
-    pygame.draw.circle(WINDOW, new_particle_info[0], new_particle_info[1], new_particle_info[2])
-
-    # refreshing the display
-    pygame.display.update()
-
-
-
-def main():
-    run = True
-    clock = pygame.time.Clock()
-    manager = ParticleCollection()
-
-    #simulating particle for brownian motion
-    manager.simulate_particles(np.random.randint(1, MAX_PARTICLES))
     
-    while run:
-        clock.tick(FPS)  
+        # updating particle velocities and positions
+        manager.update_particles()
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.quit()
+        # updating positions and colors of particle
+        new_particle_info = manager.get_updated_particle_info()
+        pygame.draw.circle(self.WINDOW, new_particle_info[0], new_particle_info[1], new_particle_info[2])
 
-        draw_window(manager)
+        # refreshing the display
+        pygame.display.update()
 
 
-if __name__ == '__main__':
-    main()
+
+    def run_sim(self):
+        run = True
+        clock = pygame.time.Clock()
+        manager = ParticleCollection()
+
+        #simulating particle for brownian motion
+        manager.simulate_particles(np.random.randint(1, self.MAX_PARTICLES))
+        
+        while run:
+            clock.tick(self.FPS)  
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                    pygame.quit()
+
+            self.draw_window(manager)
+
+
